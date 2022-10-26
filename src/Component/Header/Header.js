@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthUserContext';
 // import { Link } from 'react-router-dom';
 import logo from './Images/logo.webp';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
 
     return (
         <div>
@@ -54,51 +63,60 @@ const Header = () => {
                                     Blog
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    href="/"
-                                    aria-label="About us"
-                                    title="About us"
-                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                >
-                                    About us
-                                </Link>
-                            </li>
+                           
                             <li>
 
-                                <label for="Toggle1" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
-
+                                <label for="Toggle1" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
+                                    <span>Light</span>
                                     <span className="relative">
                                         <input id="Toggle1" type="checkbox" className="hidden peer" />
                                         <div className="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-red-400"></div>
                                         <div className="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-gray-800"></div>
                                     </span>
-
+                                    <span>Dark</span>
                                 </label>
                             </li>
                         </ul>
                     </div>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        <li>
-                            <Link
-                                to="/login"
-                                aria-label="Sign in"
-                                title="Sign in"
-                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            >
-                                Sign in
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/register"
-                                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                aria-label="Sign up"
-                                title="Sign up"
-                            >
-                                Sign up
-                            </Link>
-                        </li>
+
+                        {
+                            user?.uid ?
+                                <li>
+                                    <button
+
+                                        onClick={handleLogOut}
+                                        className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                        aria-label="Sign up"
+                                        title="Sign up"
+                                    >
+                                        Sign Out
+                                    </button>
+                                </li>
+                                :
+                                <div className='flex items-center hidden space-x-8 lg:flex'>
+                                    <li>
+                                        <Link
+                                            to="/login"
+                                            aria-label="Sign in"
+                                            title="Sign in"
+                                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                        >
+                                            Sign in
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to="/register"
+                                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                            aria-label="Sign up"
+                                            title="Sign up"
+                                        >
+                                            Sign up
+                                        </Link>
+                                    </li>
+                                </div>
+                        }
                     </ul>
                     <div className="lg:hidden">
                         <button
@@ -140,9 +158,8 @@ const Header = () => {
                                             </Link>
                                         </div>
                                         <div>
-                                            
-                                        <label for="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-100">
-                                                
+
+                                            <label for="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
                                                 <span className="relative">
                                                     <input id="Toggle2" type="checkbox" className="hidden peer" />
                                                     <div className="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-red-400"></div>
@@ -198,36 +215,44 @@ const Header = () => {
                                                     Blog
                                                 </Link>
                                             </li>
-                                            <li>
-                                                <Link
-                                                    href="/"
-                                                    aria-label="About us"
-                                                    title="About us"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    About us
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    to="/login"
-                                                    aria-label="Sign in"
-                                                    title="Sign in"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Sign in
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    to="/register"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                    aria-label="Sign up"
-                                                    title="Sign up"
-                                                >
-                                                    Sign up
-                                                </Link>
-                                            </li>
+                                        
+
+                                            {
+                                                user?.uid ?
+                                                    <li>
+                                                        <button
+                                                            onClick={handleLogOut}
+                                                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                            aria-label="Sign up"
+                                                            title="Sign up"
+                                                        >
+                                                            Sign Out
+                                                        </button>
+                                                    </li>
+                                                    :
+                                                    <div className='space-y-4'>
+                                                        <li>
+                                                            <Link
+                                                                to="/login"
+                                                                aria-label="Sign in"
+                                                                title="Sign in"
+                                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                            >
+                                                                Sign in
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link
+                                                                to="/register"
+                                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                                aria-label="Sign up"
+                                                                title="Sign up"
+                                                            >
+                                                                Sign up
+                                                            </Link>
+                                                        </li>
+                                                    </div>
+                                            }
                                         </ul>
                                     </nav>
                                 </div>

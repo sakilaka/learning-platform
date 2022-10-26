@@ -1,7 +1,40 @@
-import React from 'react';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthUserContext';
 
 const Login = () => {
+
+    const { setUser,  googleProviderLogin , githubProviderLogin} = useContext(AuthContext);
+
+    const googleProvider = new GoogleAuthProvider()
+    const githubProvider = new GithubAuthProvider();
+
+    const handleGoogleLogin = () => {
+        googleProviderLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUser(user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    const handleGithubLogin = () => {
+        githubProviderLogin(githubProvider)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            setUser(user);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+
     return (
         <div>
             <div className="overflow-hidden bg-gray-900">
@@ -9,7 +42,7 @@ const Login = () => {
                     <div className="flex flex-col items-center justify-between xl:flex-row">
                         <div className="w-full max-w-xl mb-12 xl:pr-16 xl:mb-0 xl:w-7/12">
                             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-                               Login Here.
+                                Login Here.
                             </h2>
                             <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
                                 Thank You
@@ -98,8 +131,34 @@ const Login = () => {
                                                 Login
                                             </button>
                                         </div>
+                                        <br />
+                                        <h2 className='text-center'>OR</h2>
+                                        <hr className='my-2' />
+
+                                        <div className="mt-4 mb-2 sm:mb-4">
+                                            <button
+                                                onClick={handleGoogleLogin}
+                                                type="submit"
+                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                            >
+                                                Sign In with Google
+                                            </button>
+
+                                        </div>
+
+
+                                        <div className="mt-4 mb-2 sm:mb-4">
+                                            <button
+                                                onClick={handleGithubLogin}
+                                                type="submit"
+                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                            >
+                                                Sign In with Github
+                                            </button>
+
+                                        </div>
                                         <p className="text-xs text-gray-600 sm:text-sm">
-                                           Not have an account?please <Link className='text-teal-600 font-bold' to='/register'>Sign Up</Link>
+                                            Not have an account?please <Link className='text-teal-600 font-bold' to='/register'>Sign Up</Link>
                                         </p>
                                     </form>
                                 </div>

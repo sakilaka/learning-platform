@@ -1,12 +1,48 @@
-import React from 'react';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthUserContext';
 
 const Register = () => {
+    const auth = getAuth();
+    const {user, setUser, signUpWithEmailPass } = useContext(AuthContext);
+
+    const handleEmailPassRegister = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        signUpWithEmailPass(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUser(user);
+                form.reset();
+                updateUser(name, photoURL)
+            })
+            .catch(error => console.log(error));
+    }
+
+    const updateUser = (name, photoURL) =>{
+
+        updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photoURL
+        })
+        .then(() => {
+            console.log('success');
+        })
+        .catch(error => console.log(error));
+    }
+
     return (
         <div>
-            <div className="relative">
-               
-                <div className="relative bg-gray-900 bg-opacity-75">
+            <div className="overflow-hidden">
+
+                <div className="overflow-hidden bg-gray-900">
                     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                         <div className="flex flex-col items-center justify-between xl:flex-row">
                             <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
@@ -19,7 +55,7 @@ const Register = () => {
                                 <Link
                                     href="/"
                                     aria-label=""
-                                    className="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-teal-accent-400 hover:text-teal-accent-700"
+                                    className="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-purple-400"
                                 >
                                     Learn more
                                     <svg
@@ -36,21 +72,20 @@ const Register = () => {
                                     <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                                         Sign Up
                                     </h3>
-                                    <form>
+                                    <form onSubmit={handleEmailPassRegister}>
                                         <div className="mb-1 sm:mb-2">
                                             <label
                                                 htmlFor="firstName"
                                                 className="inline-block mb-1 font-medium"
                                             >
-                                                First name
+                                                Full name
                                             </label>
                                             <input
-                                                placeholder="John"
                                                 required
                                                 type="text"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                                                id="firstName"
-                                                name="firstName"
+                                                id="name"
+                                                name="name"
                                             />
                                         </div>
                                         <div className="mb-1 sm:mb-2">
@@ -58,15 +93,14 @@ const Register = () => {
                                                 htmlFor="lastName"
                                                 className="inline-block mb-1 font-medium"
                                             >
-                                                Last name
+                                                photo URL
                                             </label>
                                             <input
-                                                placeholder="Doe"
                                                 required
                                                 type="text"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                                                id="lastName"
-                                                name="lastName"
+                                                id="photo"
+                                                name="photo"
                                             />
                                         </div>
                                         <div className="mb-1 sm:mb-2">
@@ -77,12 +111,28 @@ const Register = () => {
                                                 E-mail
                                             </label>
                                             <input
-                                                placeholder="john.doe@example.org"
+                                                placeholder="kamrul@gmail.com"
                                                 required
                                                 type="text"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                                                 id="email"
                                                 name="email"
+                                            />
+                                        </div>
+                                        <div className="mb-1 sm:mb-2">
+                                            <label
+                                                htmlFor="email"
+                                                className="inline-block mb-1 font-medium"
+                                            >
+                                                Password
+                                            </label>
+                                            <input
+                                                placeholder=""
+                                                required
+                                                type="password"
+                                                className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                                id="password"
+                                                name="password"
                                             />
                                         </div>
                                         <div className="mt-4 mb-2 sm:mb-4">
@@ -92,32 +142,9 @@ const Register = () => {
                                             >
                                                 Register
                                             </button>
-                                
-                                        </div>
-                                        <br />
-                                        <h2 className='text-center'>OR</h2>
-                                        <hr className='my-2' />
 
-                                        <div className="mt-4 mb-2 sm:mb-4">
-                                            <button
-                                                type="submit"
-                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                            >
-                                                Sign Up with Google
-                                            </button>
-                                
                                         </div>
 
-
-                                        <div className="mt-4 mb-2 sm:mb-4">
-                                            <button
-                                                type="submit"
-                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                            >
-                                                 Sign Up with Github
-                                            </button>
-                                
-                                        </div>
 
                                         <p className="text-xs text-gray-600 sm:text-sm">
                                             Already Sign Up?please <Link className='font-bold text-purple-400' to='/login'>Login</Link>
