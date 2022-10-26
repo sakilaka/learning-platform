@@ -5,7 +5,7 @@ import { AuthContext } from '../../Context/AuthUserContext';
 
 const Register = () => {
     const auth = getAuth();
-    const {user, setUser, signUpWithEmailPass } = useContext(AuthContext);
+    const { setUser, signUpWithEmailPass } = useContext(AuthContext);
 
     const handleEmailPassRegister = (event) => {
         event.preventDefault();
