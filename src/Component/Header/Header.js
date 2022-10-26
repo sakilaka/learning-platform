@@ -14,6 +14,12 @@ const Header = () => {
             .then(() => { })
             .catch(error => console.log(error))
     }
+ 
+    const showName = () =>{
+        const nameField = document.getElementById('nameShow');
+        nameField.innerText = user?.displayName;
+        // console.log(user?.displayName);
+    }
 
     return (
         <div>
@@ -82,7 +88,8 @@ const Header = () => {
 
                         {
                             user?.uid ?
-                                <li>
+                                <div className='flex items-center'>
+                                    <li>
                                     <button
 
                                         onClick={handleLogOut}
@@ -93,6 +100,8 @@ const Header = () => {
                                         Sign Out
                                     </button>
                                 </li>
+                                <img onMouseEnter={showName} className='w-12 h-12 ml-3 rounded-2xl' src={user?.photoURL} alt="" />
+                                </div>
                                 :
                                 <div className='flex items-center hidden space-x-8 lg:flex'>
                                     <li>
@@ -119,6 +128,9 @@ const Header = () => {
                         }
                     </ul>
                     <div className="lg:hidden">
+                        <div className='flex items-center'>
+                       {user?.uid &&  <img onMouseEnter={showName} className='w-10 h-10 rounded-3xl ml-3' src={user?.photoURL} alt="" />}
+                
                         <button
                             aria-label="Open Menu"
                             title="Open Menu"
@@ -140,6 +152,7 @@ const Header = () => {
                                 />
                             </svg>
                         </button>
+                        </div>
                         {isMenuOpen && (
                             <div className="absolute top-0 left-0 w-full">
                                 <div className="p-5 bg-white border rounded shadow-sm">

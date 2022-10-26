@@ -32,9 +32,7 @@ const Register = () => {
             displayName: name,
             photoURL: photoURL
         })
-        .then(() => {
-            console.log('success');
-        })
+        .then(() => {})
         .catch(error => console.log(error));
     }
 
