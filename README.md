@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Website Name
+**Best Learning Platform**
+
+
+### Live site link
+
+### Framework use
+**This project I use Tailwind CSS and use kometa UI Kit which is Component of Tailwind CSS.** 
+
+### Website description
+**This is Learning Website.Here a user can Login and get access paid course.**

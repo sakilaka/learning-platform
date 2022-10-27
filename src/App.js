@@ -3,7 +3,6 @@ import { RouterProvider } from 'react-router-dom';
 import './App.css';
 import { router } from './Routes/Router';
 
-// const ref = React.createRef();
 
 function App() {
 
