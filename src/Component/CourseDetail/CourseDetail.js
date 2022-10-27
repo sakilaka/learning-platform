@@ -43,6 +43,9 @@ const CourseDetail = () => {
                                 <Link to='/courses'>
                                     <button className='mt-5 px-8 py-4 rounded-lg text-lg font-semibold bg-blue-300 mr-6'>View all Course</button>
                                 </Link>
+
+                                {/* Generate PDF and Download PDF  */}
+                                
                                 <Pdf targetRef={ref} filename="Course-details.pdf">
                                     {({ toPdf }) =>  <button onClick={toPdf} className='mt-5 px-8 py-4 rounded-lg text-lg font-semibold bg-yellow-300 mr-6'>Download PDF</button>}
                                 </Pdf>

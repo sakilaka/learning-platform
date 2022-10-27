@@ -74,9 +74,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### Live site link
+(https://learning-website-8750c.web.app/)
+
 
 ### Framework use
 **This project I use Tailwind CSS and use kometa UI Kit which is Component of Tailwind CSS.** 
 
 ### Website description
 **This is Learning Website.Here a user can Login and get access paid course.**
+
+### What I am doing in this website
+**Here I am using Firebase Authentication.And TailWind CSS for design.This is responsive website.**
