@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import app from '../Firebase/Firebase.config';
 
 
@@ -9,19 +9,32 @@ const auth = getAuth(app);
 
 const AuthUserContext = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [load, setLoad] = useState(true);
+
 
 
 
     const googleProviderLogin = googleProvider => {
+        setLoad(true)
         return signInWithPopup(auth, googleProvider)
     }
 
     const githubProviderLogin = githubProvider => {
+        setLoad(true)
+
         return signInWithPopup(auth, githubProvider)
     }
 
     const signUpWithEmailPass = (email, password) => {
+        setLoad(true)
+
         return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const signIn = (email, password) =>{
+        setLoad(true);
+        return signInWithEmailAndPassword(auth, email, password)
+
     }
 
     const logOut = () => {
@@ -33,6 +46,8 @@ const AuthUserContext = ({ children }) => {
         const unSubscriber = onAuthStateChanged(auth, (currentUser) => {
             console.log(currentUser);
             setUser(currentUser);
+            setLoad(false)
+
         });
 
         return () => unSubscriber();
@@ -48,7 +63,9 @@ const AuthUserContext = ({ children }) => {
         googleProviderLogin,
         githubProviderLogin,
         signUpWithEmailPass,
-        logOut
+        signIn,
+        logOut,
+        load
     }
 
     return (

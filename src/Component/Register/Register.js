@@ -5,7 +5,7 @@ import { AuthContext } from '../../Context/AuthUserContext';
 
 const Register = () => {
     const auth = getAuth();
-    const { setUser, signUpWithEmailPass } = useContext(AuthContext);
+    const { signUpWithEmailPass } = useContext(AuthContext);
 
     const handleEmailPassRegister = (event) => {
         event.preventDefault();
@@ -19,7 +19,6 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                setUser(user);
                 form.reset();
                 updateUser(name, photoURL)
             })

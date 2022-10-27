@@ -6,6 +6,7 @@ import Courses from "../Component/Courses/Courses";
 import FAQ from "../Component/FAQ/FAQ";
 import Login from "../Component/Login/Login";
 import MainHeader from "../Component/MainHeader/MainHeader";
+import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
 import Register from "../Component/Register/Register";
 import Main from "../Layout/Main";
 
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',
-                element: <CheckOut></CheckOut>,
+                element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
                 loader: ({params}) => fetch(`https://my-learning-server.onrender.com/courses/${params.id}`)
             },
             {

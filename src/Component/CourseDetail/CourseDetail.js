@@ -4,7 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 const CourseDetail = () => {
     const course = useLoaderData();
     console.log(course);
-    const {id, name, Image, price, Description, Instructor, Duration, Enroll } = course;
+    const { id, name, Image, price, Description, Instructor, Duration, Enroll } = course;
     return (
         <div>
             <div className="px-4 w-9/12 py-6 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 shadow-2xl container">

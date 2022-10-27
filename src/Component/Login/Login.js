@@ -1,11 +1,14 @@
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthUserContext';
 
 const Login = () => {
 
-    const { setUser,  googleProviderLogin , githubProviderLogin} = useContext(AuthContext);
+    const {signIn, setUser, googleProviderLogin, githubProviderLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider();
@@ -16,6 +19,8 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUser(user);
+                Navigate(from, { replace: true });
+
             })
             .catch(error => {
                 console.log(error);
@@ -24,14 +29,34 @@ const Login = () => {
 
     const handleGithubLogin = () => {
         githubProviderLogin(githubProvider)
-        .then(result => {
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUser(user);
+                navigate(from, { replace: true });
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.pass.value;
+        console.log(email, password);
+
+        signIn(email, password)
+        .then(result =>{
             const user = result.user;
             console.log(user);
-            setUser(user);
+            setUser(user)
         })
-        .catch(error => {
-            console.log(error);
-        })
+        .catch(error => console.log(error));
+        form.reset();
+        navigate(from, { replace: true });
     }
 
 
@@ -90,23 +115,7 @@ const Login = () => {
                                     <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                                         Sign In
                                     </h3>
-                                    <form>
-                                        <div className="mb-1 sm:mb-2">
-                                            <label
-                                                htmlFor="name"
-                                                className="inline-block mb-1 font-medium"
-                                            >
-                                                Name
-                                            </label>
-                                            <input
-                                                placeholder="John Doe"
-                                                required
-                                                type="text"
-                                                className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-                                                id="name"
-                                                name="name"
-                                            />
-                                        </div>
+                                    <form onSubmit={handleLogin}>
                                         <div className="mb-1 sm:mb-2">
                                             <label
                                                 htmlFor="email"
@@ -115,12 +124,28 @@ const Login = () => {
                                                 E-mail
                                             </label>
                                             <input
-                                                placeholder="john.doe@example.org"
+                                                placeholder="John Doe"
                                                 required
                                                 type="text"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                                                 id="email"
                                                 name="email"
+                                            />
+                                        </div>
+                                        <div className="mb-1 sm:mb-2">
+                                            <label
+                                                htmlFor="pass"
+                                                className="inline-block mb-1 font-medium"
+                                            >
+                                                Password
+                                            </label>
+                                            <input
+                                                placeholder="john.doe@example.org"
+                                                required
+                                                type="password"
+                                                className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                                id="pass"
+                                                name="pass"
                                             />
                                         </div>
                                         <div className="mt-4 mb-2 sm:mb-4">
