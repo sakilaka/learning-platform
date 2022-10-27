@@ -6,7 +6,7 @@ const SideNav = ({ course }) => {
     return (
         <div>
             <Link to={`/courses/${course.id}`}>
-                <p className='my-3 bg-purple-500 text-white text-center text-xl p-3'>
+                <p className='my-3 bg-purple-500 text-white text-center lg:text-xl p-3'>
                     {name}
                 </p>
             </Link>

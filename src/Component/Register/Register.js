@@ -1,11 +1,12 @@
 import { getAuth, updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthUserContext';
 
 const Register = () => {
-    const auth = getAuth();
+    const auth = getAuth(); 
+    const navigate = useNavigate();
     const { signUpWithEmailPass } = useContext(AuthContext);
     const [success, setSuccess] = useState(false);
 
@@ -23,7 +24,8 @@ const Register = () => {
                 console.log(user);
                 setSuccess(true)
                 form.reset();
-                updateUser(name, photoURL)
+                updateUser(name, photoURL);
+                navigate('/');
             })
             .catch(error => console.log(error));
     }
