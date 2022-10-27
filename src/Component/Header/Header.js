@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthUserContext';
-// import { Link } from 'react-router-dom';
 import logo from './Images/logo.webp';
 
 const Header = () => {
@@ -15,11 +14,6 @@ const Header = () => {
             .catch(error => console.log(error))
     }
  
-    const showName = () =>{
-        const nameField = document.getElementById('nameShow');
-        nameField.innerText = user?.displayName;
-        // console.log(user?.displayName);
-    }
 
     return (
         <div>
@@ -28,9 +22,7 @@ const Header = () => {
                 <div className="relative flex items-center justify-between">
                     <div className="flex items-center">
                         <Link
-                            href="/"
-                            aria-label="Company"
-                            title="Company"
+                            to="/"
                             className="inline-flex items-center mr-8"
                         >
                             <img src={logo} alt="" />
@@ -42,8 +34,6 @@ const Header = () => {
                             <li>
                                 <Link
                                     to='/courses'
-                                    aria-label="Our product"
-                                    title="Our product"
                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                 >
                                     Courses
@@ -52,8 +42,6 @@ const Header = () => {
                             <li>
                                 <Link
                                     to="/faq"
-                                    aria-label="Our product"
-                                    title="Our product"
                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                 >
                                     FAQ
@@ -62,8 +50,6 @@ const Header = () => {
                             <li>
                                 <Link
                                     to="/blog"
-                                    aria-label="Product pricing"
-                                    title="Product pricing"
                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                 >
                                     Blog
@@ -72,7 +58,7 @@ const Header = () => {
                            
                             <li>
 
-                                <label for="Toggle1" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
+                                <label htmlFor="Toggle1" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
                                     <span>Light</span>
                                     <span className="relative">
                                         <input id="Toggle1" type="checkbox" className="hidden peer" />
@@ -94,21 +80,17 @@ const Header = () => {
 
                                         onClick={handleLogOut}
                                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                        aria-label="Sign up"
-                                        title="Sign up"
                                     >
                                         Sign Out
                                     </button>
                                 </li>
-                                <img onMouseEnter={showName} className='w-12 h-12 ml-3 rounded-2xl' src={user?.photoURL} alt="" />
+                                <img aria-level={user?.displayName} title={user?.displayName} className='w-12 h-12 ml-3 rounded-2xl' src={user?.photoURL} alt="" />
                                 </div>
                                 :
                                 <div className='flex items-center hidden space-x-8 lg:flex'>
                                     <li>
                                         <Link
                                             to="/login"
-                                            aria-label="Sign in"
-                                            title="Sign in"
                                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                         >
                                             Sign in
@@ -118,8 +100,6 @@ const Header = () => {
                                         <Link
                                             to="/register"
                                             className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                            aria-label="Sign up"
-                                            title="Sign up"
                                         >
                                             Sign up
                                         </Link>
@@ -129,11 +109,9 @@ const Header = () => {
                     </ul>
                     <div className="lg:hidden">
                         <div className='flex items-center'>
-                       {user?.uid &&  <img onMouseEnter={showName} className='w-10 h-10 rounded-3xl ml-3' src={user?.photoURL} alt="" />}
+                       {user?.uid &&  <img aria-level={user?.displayName} title={user?.displayName} className='w-10 h-10 rounded-3xl ml-3' src={user?.photoURL} alt="" />}
                 
                         <button
-                            aria-label="Open Menu"
-                            title="Open Menu"
                             className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
                             onClick={() => setIsMenuOpen(true)}
                         >
@@ -160,8 +138,6 @@ const Header = () => {
                                         <div>
                                             <Link
                                                 to="/"
-                                                aria-label="Company"
-                                                title="Company"
                                                 className="inline-flex items-center"
                                             >
                                                 <img src={logo} alt="" />
@@ -172,7 +148,7 @@ const Header = () => {
                                         </div>
                                         <div>
 
-                                            <label for="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
+                                            <label htmlFor="Toggle2" className="inline-flex items-center space-x-4 cursor-pointer dark:text-gray-900">
                                                 <span className="relative">
                                                     <input id="Toggle2" type="checkbox" className="hidden peer" />
                                                     <div className="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-red-400"></div>
@@ -182,8 +158,6 @@ const Header = () => {
                                         </div>
                                         <div>
                                             <button
-                                                aria-label="Close Menu"
-                                                title="Close Menu"
                                                 className="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
@@ -201,8 +175,6 @@ const Header = () => {
                                             <li>
                                                 <Link
                                                     to="/"
-                                                    aria-label="Our product"
-                                                    title="Our product"
                                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                 >
                                                     Courses
@@ -211,8 +183,6 @@ const Header = () => {
                                             <li>
                                                 <Link
                                                     to="/faq"
-                                                    aria-label="Our product"
-                                                    title="Our product"
                                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                 >
                                                     FAQ
@@ -221,8 +191,6 @@ const Header = () => {
                                             <li>
                                                 <Link
                                                     to="/blog"
-                                                    aria-label="Product pricing"
-                                                    title="Product pricing"
                                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                 >
                                                     Blog
@@ -236,8 +204,6 @@ const Header = () => {
                                                         <button
                                                             onClick={handleLogOut}
                                                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                            aria-label="Sign up"
-                                                            title="Sign up"
                                                         >
                                                             Sign Out
                                                         </button>
@@ -247,8 +213,6 @@ const Header = () => {
                                                         <li>
                                                             <Link
                                                                 to="/login"
-                                                                aria-label="Sign in"
-                                                                title="Sign in"
                                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                             >
                                                                 Sign in
@@ -258,8 +222,6 @@ const Header = () => {
                                                             <Link
                                                                 to="/register"
                                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                                aria-label="Sign up"
-                                                                title="Sign up"
                                                             >
                                                                 Sign up
                                                             </Link>

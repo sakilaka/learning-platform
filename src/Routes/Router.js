@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Blog from "../Component/Blog/Blog";
+import CheckOut from "../Component/CheckOut/CheckOut";
+import CourseDetail from "../Component/CourseDetail/CourseDetail";
 import Courses from "../Component/Courses/Courses";
 import FAQ from "../Component/FAQ/FAQ";
 import Login from "../Component/Login/Login";
@@ -23,12 +25,22 @@ export const router = createBrowserRouter([
                 loader: () => fetch('https://learning-website.onrender.com/courses')
             },
             {
+                path: '/courses/:id',
+                element: <CourseDetail></CourseDetail>,
+                loader: ({params}) => fetch(`http://localhost:5000/courses/${params.id}`)
+            },
+            {
                 path: '/faq',
                 element: <FAQ></FAQ>
             },
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/checkout/:id',
+                element: <CheckOut></CheckOut>,
+                loader: ({params}) => fetch(`http://localhost:5000/courses/${params.id}`)
             },
             {
                 path: '/login',
