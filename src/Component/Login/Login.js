@@ -1,14 +1,16 @@
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthUserContext';
 
 const Login = () => {
 
-    const {signIn, setUser, googleProviderLogin, githubProviderLogin } = useContext(AuthContext);
+    const { signIn, setUser, googleProviderLogin, githubProviderLogin } = useContext(AuthContext);
+    const [error, setError] = useState(null);
+
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname;
 
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider();
@@ -24,6 +26,7 @@ const Login = () => {
             })
             .catch(error => {
                 console.log(error);
+
             })
     }
 
@@ -49,12 +52,20 @@ const Login = () => {
         console.log(email, password);
 
         signIn(email, password)
-        .then(result =>{
-            const user = result.user;
-            console.log(user);
-            setUser(user)
-        })
-        .catch(error => console.log(error));
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUser(user);
+            })
+            .catch(error => {
+                console.log(error)
+                if (error.code === "auth/wrong-password") {
+                   setError("Email or Password Incorrect.")
+                }
+                else if(error.code === "auth/user-not-found"){
+                    setError("User not Found.")
+                }
+            });
         form.reset();
         navigate(from, { replace: true });
     }
@@ -73,7 +84,7 @@ const Login = () => {
                                 Thank You
                             </p>
                             <Link
-                                href="/"
+                                href=""
                                 aria-label=""
                                 className="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-teal-300 hover:text-teal-accent-700"
                             >
@@ -116,6 +127,7 @@ const Login = () => {
                                         Sign In
                                     </h3>
                                     <form onSubmit={handleLogin}>
+                                        <p className='text-red-500 text-xl my-3'>{error}</p>
                                         <div className="mb-1 sm:mb-2">
                                             <label
                                                 htmlFor="email"
@@ -124,7 +136,7 @@ const Login = () => {
                                                 E-mail
                                             </label>
                                             <input
-                                                placeholder="John Doe"
+                                                placeholder=""
                                                 required
                                                 type="text"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
@@ -140,7 +152,7 @@ const Login = () => {
                                                 Password
                                             </label>
                                             <input
-                                                placeholder="john.doe@example.org"
+                                                placeholder=""
                                                 required
                                                 type="password"
                                                 className="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
@@ -148,6 +160,7 @@ const Login = () => {
                                                 name="pass"
                                             />
                                         </div>
+                                        <p>{error}</p>
                                         <div className="mt-4 mb-2 sm:mb-4">
                                             <button
                                                 type="submit"

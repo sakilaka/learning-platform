@@ -39,6 +39,9 @@ const CourseDetail = () => {
                                 <Link to='/courses'>
                                     <button className='mt-5 px-8 py-4 rounded-lg text-lg font-semibold bg-blue-300 mr-6'>View all Course</button>
                                 </Link>
+                                <Link to=''>
+                                    <button className='mt-5 px-8 py-4 rounded-lg text-lg font-semibold bg-yellow-300 mr-6'>Download PDF</button>
+                                </Link>
                             </div>
 
                         </div>

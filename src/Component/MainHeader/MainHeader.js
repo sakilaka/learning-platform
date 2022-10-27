@@ -37,7 +37,7 @@ const MainHeader = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-center h-full overflow-hidden lg:w-2/3 xl:w-1/2 lg:absolute lg:justify-start lg:bottom-0 lg:right-0 lg:items-end">
+                <div className="flex justify-center items-center h-full overflow-hidden lg:w-2/3 xl:w-1/2 lg:absolute lg:justify-start lg:top-16 lg:right-0 lg:items-end">
                     <img
                         src={programming}
                         className="w-full h-full max-w-xl -mb-16 rounded shadow-2xl lg:ml-64 xl:ml-8 lg:-mb-24 xl:-mb-28 lg:h-full lg:max-w-screen-md"

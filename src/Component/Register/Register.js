@@ -1,4 +1,5 @@
 import { getAuth, updateProfile } from 'firebase/auth';
+import { useState } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthUserContext';
@@ -6,6 +7,7 @@ import { AuthContext } from '../../Context/AuthUserContext';
 const Register = () => {
     const auth = getAuth();
     const { signUpWithEmailPass } = useContext(AuthContext);
+    const [success, setSuccess] = useState(false);
 
     const handleEmailPassRegister = (event) => {
         event.preventDefault();
@@ -19,6 +21,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setSuccess(true)
                 form.reset();
                 updateUser(name, photoURL)
             })
@@ -70,6 +73,7 @@ const Register = () => {
                                         Sign Up
                                     </h3>
                                     <form onSubmit={handleEmailPassRegister}>
+                                        {success && <p className='text-green-400 text-xl my-2'>Register Successfully.</p>}
                                         <div className="mb-1 sm:mb-2">
                                             <label
                                                 htmlFor="firstName"
