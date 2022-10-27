@@ -4,7 +4,7 @@ import programming from './programming.jpeg';
 const MainHeader = () => {
     return (
         <div>
-            <div className="relative px-4 pt-16 mx-auto lg:py-32 md:px-8 xl:px-20 sm:max-w-xl md:max-w-full">
+            <div className="px-4 pt-16 mx-auto lg:py-32 md:px-8 xl:px-20 sm:max-w-xl md:max-w-full">
                 <div className="max-w-xl mx-auto lg:max-w-screen-xl">
                     <div className="mb-16 lg:max-w-lg lg:mb-0">
                         <div className="max-w-xl mb-6">
@@ -22,7 +22,7 @@ const MainHeader = () => {
                         </div>
                         <div className="flex items-center">
                             <a
-                                href="/"
+                                href="/courses"
                                 className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                             >
                                View Courses

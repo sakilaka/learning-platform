@@ -22,12 +22,12 @@ export const router = createBrowserRouter([
             {
                 path: '/courses',
                 element: <Courses></Courses>,
-                loader: () => fetch('https://learning-website.onrender.com/courses')
+                loader: () => fetch('https://my-learning-server.onrender.com/courses')
             },
             {
                 path: '/courses/:id',
                 element: <CourseDetail></CourseDetail>,
-                loader: ({params}) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: ({params}) => fetch(`https://my-learning-server.onrender.com/courses/${params.id}`)
             },
             {
                 path: '/faq',
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
             {
                 path: '/checkout/:id',
                 element: <CheckOut></CheckOut>,
-                loader: ({params}) => fetch(`http://localhost:5000/courses/${params.id}`)
+                loader: ({params}) => fetch(`https://my-learning-server.onrender.com/courses/${params.id}`)
             },
             {
                 path: '/login',

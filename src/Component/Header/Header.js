@@ -174,7 +174,7 @@ const Header = () => {
                                         <ul className="space-y-4">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/courses"
                                                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                 >
                                                     Courses

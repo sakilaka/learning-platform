@@ -7,13 +7,13 @@ const CourseDetail = () => {
     const {id, name, Image, price, Description, Instructor, Duration, Enroll } = course;
     return (
         <div>
-            <div className="px-4 py-6 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 shadow-2xl container">
+            <div className="px-4 w-9/12 py-6 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 shadow-2xl container">
                 <div className="sm:max-w-sm sm:mx-auto lg:max-w-full">
                     <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
                         <a href="/" aria-label="Article">
                             <img
                                 src={Image}
-                                className="object-cover w-full h-full rounded"
+                                className="object-cover w-7/12 h-7/12 p-5 mx-auto rounded"
                                 alt=""
                             />
                         </a>
